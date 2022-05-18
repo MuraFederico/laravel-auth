@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'Admin\HomeController@index')->name('home');
+// Route::get('/home', 'Admin\HomeController@index')->name('home');
 
 Route::middleware('auth')
     ->prefix('admin')

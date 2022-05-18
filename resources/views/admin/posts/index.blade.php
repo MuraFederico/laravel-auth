@@ -4,33 +4,34 @@
 
 @section('content')
     @foreach ($posts as $post)
+    {{-- @dd($post->created_at) --}}
     <div class="container posts-content">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="card mb-4">
                   <div class="card-body">
                     <div class="media mb-3">
-                      <img src="{{ $post->media }}" class="d-block ui-w-40 rounded-circle" alt="">
+                      <img src="{{ $post->media }}" class="d-block ui-w-40 img-fluid" alt="">
                       <div class="media-body ml-3">
-                        Kenneth Frazier
-                        <div class="text-muted small">3 days ago</div>
+                        {{ $post->user->name }}
+                        <div class="text-muted small">{{date_format($post->created_at, 'd/m/y')}}</div>
                       </div>
                     </div>
 
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus finibus commodo bibendum. Vivamus laoreet blandit odio, vel finibus quam dictum ut.
+                      {{ $post->content }}
                     </p>
                     <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a>
                   </div>
-                  <div class="card-footer">
-                    <a href="javascript:void(0)" class="d-inline-block text-muted">
-                        <strong>123</strong> Likes</small>
+                  <div class="card-footer d-flex">
+                    <a href="javascript:void(0)" class="d-inline-block text-muted me-3">
+                        <strong>{{ $post->likes }}</strong> Likes</small>
                     </a>
-                    <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
-                        <strong>12</strong> Comments</small>
+                    <a href="javascript:void(0)" class="d-inline-block text-muted me-3">
+                        <strong>{{ $post->comments }}</strong> Comments</small>
                     </a>
-                    <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
-                      <small class="align-middle">Repost</small>
+                    <a href="{{ route('admin.posts.show', $post->id) }}" class="d-inline-block text-muted ms-auto">
+                      <small class="align-middle">Show More</small>
                     </a>
                   </div>
                 </div>
@@ -38,4 +39,5 @@
         </div>
     </div>
     @endforeach
+    {{ $posts->links() }}
 @endsection
