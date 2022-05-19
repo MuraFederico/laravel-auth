@@ -20,8 +20,8 @@ class CreatePostsTable extends Migration
             $table->string('slug', 100);
             $table->string('media', 50);
             $table->text('content');
-            $table->integer('likes');
-            $table->integer('comments');
+            $table->integer('likes')->default(0);
+            $table->integer('comments')->default(0);
             $table->timestamps();
         });
     }

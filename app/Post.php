@@ -22,4 +22,11 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    protected $fillable = ['title', 'content', 'slug', 'user_id', 'media', 'likes', 'comments'];
 }

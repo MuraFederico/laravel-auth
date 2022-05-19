@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    // public $validators = [
+    //     'title'     => 'required|max:100',
+    //     'content'   => 'required',
+    //     'media'     => 'required|URL',
+
+    // ];
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::paginate(50);
 
         // dd($posts);
 
@@ -29,7 +37,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -40,7 +48,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validators = [
+            'title'     => 'required|max:100',
+            'content'   => 'required',
+            'media'     => 'required|URL',
+
+        ];
+
+        $request->validate($validators);
+
+        $post = Post::create($request->all());
+
+       return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
