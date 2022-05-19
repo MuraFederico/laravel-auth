@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -81,7 +82,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -93,7 +94,22 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validators = [
+            'title'     => 'required|max:100',
+            'content'   => 'required',
+            'media'     => 'required|URL',
+            'slug'      => [
+                'required',
+                Rule::unique('posts')->ignore($post),
+                'max:100'
+            ],
+        ];
+
+        $request->validate($validators);
+
+        $post->update($request->all());
+
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
