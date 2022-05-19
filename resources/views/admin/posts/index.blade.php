@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     @foreach ($posts as $post)
-                        <tr>
+                        <tr data-id="{{ $post->slug }}">
                             <th class="text-center" scope="row">{{ $post->id }}</th>
                             <td>{{ $post->user->name }}</td>
                             <td>{{ $post->title }}</td>
@@ -37,7 +37,7 @@
                                 <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->slug) }}">Edit</a>
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-danger btn-delete" data-id="{{ $post->slug }}">Delete</button>
+                                <button class="btn btn-danger btn-delete" >Delete</button>
                             </td>
                         </tr>
                     @endforeach

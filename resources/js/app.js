@@ -30,3 +30,27 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+
+
+const confirmationOverlay = document.querySelector('#confirmation-overlay');
+if (confirmationOverlay) {
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.closest('tr').dataset.id;
+            console.log(id)
+            const confirmationForm = confirmationOverlay.querySelector('form');
+            const strAction = confirmationForm.dataset.base.replace(/(\b0\b)(?!.*\1)/, id);
+            console.log(strAction)
+            confirmationForm.action = strAction;
+            confirmationOverlay.classList.remove('d-none');
+        })
+    });
+
+    const btnNo = document.querySelector('#btn-no');
+    btnNo.addEventListener('click', function() {
+        confirmationForm.action = '';
+        confirmationOverlay.classList.add('d-none');
+    });
+
+}
